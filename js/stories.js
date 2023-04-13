@@ -50,3 +50,20 @@ function putStoriesOnPage() {
 
   $allStoriesList.show();
 }
+
+/** Get the submit story form data and put it on the page*/
+
+function putNewStoryOnPage(evt) {
+  evt.preventDefault;
+
+  const newStory = addStory(currentUser,
+      {
+        title: $("#story-title"),
+        author: $("#story-author"),
+        url: $("#story-url")
+    });
+
+  const newStoryMarkup = generateStoryMarkup(newStory);
+}
+
+$newStoryForm.on("submit", putNewStoryOnPage)
