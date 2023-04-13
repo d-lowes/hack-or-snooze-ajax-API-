@@ -51,22 +51,24 @@ function putStoriesOnPage() {
   $allStoriesList.show();
 }
 
-/** Get the submit story form data and put it on the page*/
+/** Get the submit story form data and put it on the page. */
 
 async function putNewStoryOnPage(evt) {
   evt.preventDefault();
+
   console.log(
     'title',
     $('#story-title').val(),
     'author',
     $('#story-author').val(),
     'url',
-    $('#story-url').val()
+    $('#story-URL').val()
   );
+  // TODO: Check URL, must be HTTP://
   const newStory = await storyList.addStory(currentUser, {
     title: $('#story-title').val(),
     author: $('#story-author').val(),
-    url: $('#story-URL').val(),
+    url: $('#story-URL').val()
   });
 
   const newStoryMarkup = generateStoryMarkup(newStory);
