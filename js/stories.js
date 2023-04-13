@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 // This is the global list of the stories, an instance of StoryList
 let storyList;
@@ -38,7 +38,7 @@ function generateStoryMarkup(story) {
 /** Gets list of stories from server, generates their HTML, and puts on page. */
 
 function putStoriesOnPage() {
-  console.debug("putStoriesOnPage");
+  console.debug('putStoriesOnPage');
 
   $allStoriesList.empty();
 
@@ -53,17 +53,24 @@ function putStoriesOnPage() {
 
 /** Get the submit story form data and put it on the page*/
 
-function putNewStoryOnPage(evt) {
-  evt.preventDefault;
-
-  const newStory = addStory(currentUser,
-      {
-        title: $("#story-title"),
-        author: $("#story-author"),
-        url: $("#story-url")
-    });
+async function putNewStoryOnPage(evt) {
+  evt.preventDefault();
+  console.log(
+    'title',
+    $('#story-title').val(),
+    'author',
+    $('#story-author').val(),
+    'url',
+    $('#story-url').val()
+  );
+  const newStory = await storyList.addStory(currentUser, {
+    title: $('#story-title').val(),
+    author: $('#story-author').val(),
+    url: $('#story-URL').val(),
+  });
 
   const newStoryMarkup = generateStoryMarkup(newStory);
+  $allStoriesList.prepend(newStoryMarkup);
 }
 
-$newStoryForm.on("submit", putNewStoryOnPage)
+$newStoryForm.on('submit', putNewStoryOnPage);
