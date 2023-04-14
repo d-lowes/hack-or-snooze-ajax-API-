@@ -207,10 +207,8 @@ class User {
    */
 
   async addFavorite(story) {
-    //TODO: create article id variable to pass
     let articleID = story.storyId;
-    console.log('story =', story);
-    console.log('articleID =', articleID);
+
 
     await axios({
       url: `${BASE_URL}/users/${this.username}/favorites/${articleID}`,
@@ -228,10 +226,8 @@ class User {
    * removes it from the favorites array on both server and client sides*/
 
   async removeFavorite(story) {
-    //TODO: create article id variable to pass
     let articleID = story.storyId;
-    // console.log('story =', story);
-    // console.log('articleID =', articleID);
+
 
     await axios({
       url: `${BASE_URL}/users/${this.username}/favorites/${articleID}`,
@@ -247,4 +243,3 @@ class User {
     );
   }
 }
-//tedcruzisthezodiakkiller

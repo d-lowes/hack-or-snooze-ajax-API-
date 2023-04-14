@@ -32,7 +32,7 @@ $loginForm.on("submit", login);
 /** Handle signup form submission. */
 
 async function signup(evt) {
-  console.debug("signup", evt);
+  // console.debug("signup", evt);
   evt.preventDefault();
 
   const name = $("#signup-name").val();
@@ -57,7 +57,7 @@ $signupForm.on("submit", signup);
  */
 
 function logout(evt) {
-  console.debug("logout", evt);
+  // console.debug("logout", evt);
   localStorage.clear();
   location.reload();
 }
@@ -89,7 +89,7 @@ async function checkForRememberedUser() {
  */
 
 function saveUserCredentialsInLocalStorage() {
-  console.debug("saveUserCredentialsInLocalStorage");
+  // console.debug("saveUserCredentialsInLocalStorage");
   if (currentUser) {
     localStorage.setItem("token", currentUser.loginToken);
     localStorage.setItem("username", currentUser.username);
@@ -108,7 +108,7 @@ function saveUserCredentialsInLocalStorage() {
  */
 
 function updateUIOnUserLogin() {
-  console.debug("updateUIOnUserLogin");
+  // console.debug("updateUIOnUserLogin");
 
   $allStoriesList.show();
 
