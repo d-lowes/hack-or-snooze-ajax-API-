@@ -64,13 +64,14 @@ async function putNewStoryOnPage(evt) {
     'url',
     $('#story-URL').val()
   );
+
   // TODO: Check URL, must be HTTP://
   const newStory = await storyList.addStory(currentUser, {
     title: $('#story-title').val(),
     author: $('#story-author').val(),
     url: $('#story-URL').val()
   });
-
+  console.log("newStory =", newStory);
   const newStoryMarkup = generateStoryMarkup(newStory);
   $allStoriesList.prepend(newStoryMarkup);
 }

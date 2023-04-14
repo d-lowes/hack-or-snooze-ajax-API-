@@ -72,7 +72,7 @@ class StoryList {
    */
 
   async addStory(user, newStory) {
-    // UNIMPLEMENTED: complete this function!
+    
     const storyRequest = await axios({
       url: `${BASE_URL}/stories`,
       method: 'POST',
@@ -86,7 +86,8 @@ class StoryList {
         },
       },
     });
-    return new Story(storyRequest);
+
+    return new Story(storyRequest.data.story);
   }
 }
 
