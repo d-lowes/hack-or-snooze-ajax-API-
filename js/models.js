@@ -156,7 +156,7 @@ class User {
       method: 'POST',
       data: { user: { username, password } },
     });
-
+    console.log('respose =', response);
     const { user } = response.data;
 
     return new User(
@@ -206,23 +206,45 @@ class User {
    * Takes in a Story instance and updates user.favorites via axios.
    */
 
-  async addFavorites(story) {
-    const userName = await currentUser.username;
+  async addFavorite(story) {
     //TODO: create article id variable to pass
     let articleID = story.storyId;
-    console.log("story =", story)
-    console.log("articleID =", articleID)
+    console.log('story =', story);
+    console.log('articleID =', articleID);
 
-    let addFavorite = await axios({
-      url: `${BASE_URL}/users/${userName}/favorites/${articleID}`,
+    await axios({
+      url: `${BASE_URL}/users/${this.username}/favorites/${articleID}`,
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
+      headers: { 'Content-Type': 'application/json' },
       data: {
-        token: currentUser.loginToken
-      }
+        token: this.loginToken,
+      },
     });
 
-    currentUser.favorites = addFavorite
+    this.favorites.push(story);
+  }
 
+  /** Takes in a Story instance
+   * removes it from the favorites array on both server and client sides*/
+
+  async removeFavorite(story) {
+    //TODO: create article id variable to pass
+    let articleID = story.storyId;
+    // console.log('story =', story);
+    // console.log('articleID =', articleID);
+
+    await axios({
+      url: `${BASE_URL}/users/${this.username}/favorites/${articleID}`,
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      data: {
+        token: this.loginToken,
+      },
+    });
+
+    this.favorites = this.favorites.filter(
+      (article) => article.storyId !== articleID
+    );
   }
 }
+//tedcruzisthezodiakkiller
