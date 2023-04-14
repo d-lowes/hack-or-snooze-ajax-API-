@@ -47,9 +47,18 @@
     <!-- area for stories (all stories, user stories, favorites) -->
     <section class="stories-container container">
       <form class="new-story-form hidden">
-        <input id="story-title" type="text" placeholder="author name" />Author
-        <input id="story-author" type="text" placeholder="story title" />Title
-        <input id="story-URL" type="text" placeholder="story url" />URL
+        <div>
+          <label for="story-author-input">author</label>
+          <input id="story-author" type="text" placeholder="author name" />
+        </div>
+        <div>
+          <label for="story-title-input">title</label>
+          <input id="story-title" type="text" placeholder="story title" />
+        </div>
+        <div>
+          <label for="story-url-input">url</label>
+          <input id="story-URL" type="text" placeholder="story url" />
+        </div>
         <button class="pe-none" id="story-submit" type="submit">submit</button>
       </form>
       <!-- loading message (removed by JS after stories loaded) -->
