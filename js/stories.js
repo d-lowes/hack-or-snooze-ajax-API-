@@ -26,7 +26,9 @@ function generateStoryMarkup(story) {
   const hostName = story.getHostName();
   return $(`
       <li id="${story.storyId}">
-        <span class="star-favorite bi bi-star${isFill}"></span>
+        <span class="star">
+          <i class="star-favorite bi bi-star${isFill}"></i>
+        </span>
         <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
         </a>
@@ -52,6 +54,8 @@ function putStoriesOnPage() {
 
   $allStoriesList.show();
 }
+
+
 
 /** Get the submit story form data and put it on the page. */
 
@@ -83,11 +87,18 @@ $newStoryForm.on('submit', putNewStoryOnPage);
 /** Listen for the star click, and add the article to the favorites list or
  *  remove if the star is already filled and a favorite.
  */
-
+// TODO: use jquery
+// TODO: get the closest list id, and find the story from that ID
+  // pass that into isFavorite
+  // select id string "", pass that into a function that retrieves the entire
+  // story from the API
 async function addOrRemoveFavorite(evt) {
-  if (isFavorite) {
-    await currentUser.addFavorite();
-    console.log('addorRemoveFave event target: 'evt.target)
+  let $starListId = $(evt.target).closest("li").attr('id');
+  console.log("starlist id", $starListId);
+  let storyTarget = getEntireStory($starListId);
+
+  if (isFavorite()) {
+    await currentUser.addFavorite()
     evt.target.classlist.toggle('bs-star-fill');
   } else {
     await currentUser.removeFavorite();
@@ -95,7 +106,9 @@ async function addOrRemoveFavorite(evt) {
   }
 }
 
-$starFavorite.on('click', addOrRemoveFavorite);
+
+
+$allStoriesList.on('click', ".star", addOrRemoveFavorite);
 
 function isFavorite(story) {
   return currentUser.favorites.some(
