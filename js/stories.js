@@ -3,8 +3,6 @@
 // This is the global list of the stories, an instance of StoryList
 let storyList;
 
-let isFavorite;
-
 /** Get and show stories when site first loads. */
 
 async function getAndShowStoriesOnStart() {
@@ -23,7 +21,7 @@ async function getAndShowStoriesOnStart() {
 
 function generateStoryMarkup(story) {
   // console.debug("generateStoryMarkup", story);
-  let isFill = isFavorite ? '-fill' : '';
+  let isFill = isFavorite(story) ? '-fill' : '';
 
   const hostName = story.getHostName();
   return $(`
@@ -89,6 +87,7 @@ $newStoryForm.on('submit', putNewStoryOnPage);
 async function addOrRemoveFavorite(evt) {
   if (isFavorite) {
     await currentUser.addFavorite();
+    console.log('addorRemoveFave event target: 'evt.target)
     evt.target.classlist.toggle('bs-star-fill');
   } else {
     await currentUser.removeFavorite();
