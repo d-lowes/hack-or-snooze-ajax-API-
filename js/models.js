@@ -72,7 +72,6 @@ class StoryList {
    */
 
   async addStory(user, newStory) {
-    
     const storyRequest = await axios({
       url: `${BASE_URL}/stories`,
       method: 'POST',
@@ -200,5 +199,15 @@ class User {
       console.error('loginViaStoredCredentials failed', err);
       return null;
     }
+  }
+
+  /** After logged in, allows user to favorite / unfavorite articles.
+   * Saved as an array on API server at user.favoriets.
+   *
+   * Takes in a Story instance and updates user.favorites via axios.
+   */
+
+  async addAndRemoveFavorites() {
+    https://hack-or-snooze-v3.herokuapp.com/users/{USERNAME}/favorites/${ARTICLE-ID}
   }
 }
