@@ -23,7 +23,7 @@ async function getAndShowStoriesOnStart() {
 
 function generateStoryMarkup(story) {
   // console.debug("generateStoryMarkup", story);
-  let isFill = (isFavorite) ? '-fill' : '';
+  let isFill = isFavorite ? '-fill' : '';
 
   const hostName = story.getHostName();
   return $(`
@@ -86,18 +86,20 @@ $newStoryForm.on('submit', putNewStoryOnPage);
  *  remove if the star is already filled and a favorite.
  */
 
-function addOrRemoveFavorite(evt) {
-  // loop through favorite array
-  // if articleId === favorites.storyId
-    // isFavorite = false
-    // return
-  // isFavorite = true;
-
+async function addOrRemoveFavorite(evt) {
   if (isFavorite) {
-    currentUser.addFavorite();
+    await currentUser.addFavorite();
+    evt.target.classlist.toggle('bs-star-fill');
   } else {
-    currentUser.removeFavorite();
+    await currentUser.removeFavorite();
+    evt.target.classlist.toggle('bs-star');
   }
 }
 
-$starFavorite.on('click', addOrRemoveFavorite)
+$starFavorite.on('click', addOrRemoveFavorite);
+
+function isFavorite(story) {
+  return currentUser.favorites.some(
+    (favStory) => favStory.storyId === story.storyId
+  );
+}
