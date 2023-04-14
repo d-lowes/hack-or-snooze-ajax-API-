@@ -21,11 +21,12 @@ async function getAndShowStoriesOnStart() {
 
 function generateStoryMarkup(story) {
   // console.debug("generateStoryMarkup", story);
+  // const isFavorite = (function) ? '-fill' : '';
 
   const hostName = story.getHostName();
   return $(`
       <li id="${story.storyId}">
-      <span class="bi bi-star${fill}"></span>
+        <span class="bi bi-star"></span>
         <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
         </a>

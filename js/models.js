@@ -201,16 +201,17 @@ class User {
     }
   }
   /** After logged in, allows user to favorite / unfavorite articles.
-   * Saved as an array on API server at user.favoriets.
+   * Saved as an array on API server at user.favorites.
    *
    * Takes in a Story instance and updates user.favorites via axios.
    */
 
-  async  addAndRemoveFavorites() {
+  async addFavorites(story) {
     const userName = await currentUser.username;
     //TODO: create article id variable to pass
-    const articleID;
-    $("#story.id").class("bi-star")
+    let articleID = story.storyId;
+    console.log("story =", story)
+    console.log("articleID =", articleID)
 
     let addFavorite = await axios({
       url: `${BASE_URL}/users/${userName}/favorites/${articleID}`,
@@ -219,6 +220,9 @@ class User {
       data: {
         token: currentUser.loginToken
       }
-    })
+    });
+
+    currentUser.favorites = addFavorite
+
   }
 }
