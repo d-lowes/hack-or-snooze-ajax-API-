@@ -55,8 +55,6 @@ function putStoriesOnPage() {
   $allStoriesList.show();
 }
 
-
-
 /** Get the submit story form data and put it on the page. */
 
 async function putNewStoryOnPage(evt) {
@@ -89,29 +87,38 @@ $newStoryForm.on('submit', putNewStoryOnPage);
  */
 // TODO: use jquery
 // TODO: get the closest list id, and find the story from that ID
-  // pass that into isFavorite
-  // select id string "", pass that into a function that retrieves the entire
-  // story from the API
+// pass that into isFavorite
+// select id string "", pass that into a function that retrieves the entire
+// story from the API
 async function addOrRemoveFavorite(evt) {
-  let $starListId = $(evt.target).closest("li").attr('id');
-  console.log("starlist id", $starListId);
-  let storyTarget = getEntireStory($starListId);
+  let $starListId = $(evt.target).closest('li').attr('id');
+  // console.log('starlist id', $starListId);
 
-  if (isFavorite()) {
-    await currentUser.addFavorite()
-    evt.target.classlist.toggle('bs-star-fill');
+  let storyTarget = await getEntireStory($starListId);
+  // console.log('getEntireStory ', storyTarget);
+  console.log(evt.target);
+
+  if (isFavorite(storyTarget.data.story)) {
+    await currentUser.addFavorite(storyTarget.data.story);
+    $(evt.target).toggleClass('bs-star-fill');
   } else {
-    await currentUser.removeFavorite();
-    evt.target.classlist.toggle('bs-star');
+    await currentUser.removeFavorite(storyTarget.data.story);
+    $(evt.target).toggleClass('bs-star');
   }
 }
 
+$allStoriesList.on('click', '.star', addOrRemoveFavorite);
 
-
-$allStoriesList.on('click', ".star", addOrRemoveFavorite);
-
-function isFavorite(story) {
+async function isFavorite(story) {
   return currentUser.favorites.some(
     (favStory) => favStory.storyId === story.storyId
   );
 }
+
+async function getEntireStory(id) {
+  return await axios({
+    url: `${BASE_URL}/stories/${id}`,
+    method: 'GET',
+  });
+}
+// data.story.storyId
