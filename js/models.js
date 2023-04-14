@@ -85,7 +85,7 @@ class StoryList {
         },
       },
     });
-
+    console.log(storyRequest.data.story);
     return new Story(storyRequest.data.story);
   }
 }
@@ -200,14 +200,25 @@ class User {
       return null;
     }
   }
-
   /** After logged in, allows user to favorite / unfavorite articles.
    * Saved as an array on API server at user.favoriets.
    *
    * Takes in a Story instance and updates user.favorites via axios.
    */
 
-  async addAndRemoveFavorites() {
-    https://hack-or-snooze-v3.herokuapp.com/users/{USERNAME}/favorites/${ARTICLE-ID}
+  async  addAndRemoveFavorites() {
+    const userName = await currentUser.username;
+    //TODO: create article id variable to pass
+    const articleID;
+    $("#story.id").class("bi-star")
+
+    let addFavorite = await axios({
+      url: `${BASE_URL}/users/${userName}/favorites/${articleID}`,
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      data: {
+        token: currentUser.loginToken
+      }
+    })
   }
 }

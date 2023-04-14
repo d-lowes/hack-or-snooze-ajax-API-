@@ -25,6 +25,7 @@ function generateStoryMarkup(story) {
   const hostName = story.getHostName();
   return $(`
       <li id="${story.storyId}">
+      <span class="bi bi-star${fill}"></span>
         <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
         </a>
@@ -69,9 +70,9 @@ async function putNewStoryOnPage(evt) {
   const newStory = await storyList.addStory(currentUser, {
     title: $('#story-title').val(),
     author: $('#story-author').val(),
-    url: $('#story-URL').val()
+    url: $('#story-URL').val(),
   });
-  console.log("newStory =", newStory);
+  console.log('newStory =', newStory);
   const newStoryMarkup = generateStoryMarkup(newStory);
   $allStoriesList.prepend(newStoryMarkup);
 }
