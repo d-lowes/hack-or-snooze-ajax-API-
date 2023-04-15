@@ -20,8 +20,10 @@ async function getAndShowStoriesOnStart() {
  */
 
 function generateStoryMarkup(story) {
-  // console.debug("generateStoryMarkup", story);
   let isFill = isFavorite(story) ? '-fill' : '';
+
+  console.log("isFill =", isFill);
+  console.log("isFavorite = ", isFavorite(story));
 
   const hostName = story.getHostName();
   return $(`
@@ -100,19 +102,17 @@ async function addOrRemoveFavorite(evt) {
 
   if (isFavorite(storyTarget.data.story)) {
     await currentUser.addFavorite(storyTarget.data.story);
-    $(evt.target).toggleClass('bs-star-fill');
   } else {
     await currentUser.removeFavorite(storyTarget.data.story);
-    $(evt.target).toggleClass('bs-star');
   }
+  
+  $(evt.target).toggleClass('bi-star bi-star-fill');
 }
 
 $allStoriesList.on('click', '.star', addOrRemoveFavorite);
 
-async function isFavorite(story) {
-  return currentUser.favorites.some(
-    (favStory) => favStory.storyId === story.storyId
-  );
+function isFavorite(story) {
+  return currentUser.favorites.some(favStory => favStory.storyId === story.storyId);
 }
 
 async function getEntireStory(id) {
